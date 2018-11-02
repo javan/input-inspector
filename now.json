@@ -1,0 +1,6 @@
+{
+  "type": "static",
+  "public": true,
+  "name": "input-inspector",
+  "alias": "input-inspector.now.sh"
+}
