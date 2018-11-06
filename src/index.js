@@ -69,8 +69,14 @@ function render() {
 
 const serializers = {
   event: (event) => {
-    const { type, key, code, cancelable, isComposing, inputType, data } = event
-    return { type, key, code, cancelable, isComposing, inputType, data }
+    const data = {}
+    for (const key in event) {
+      const value = event[key]
+      if (/string|number|boolean/.test(typeof value)) {
+        data[key] = value
+      }
+    }
+    return data
   },
 
   mutation: (mutation) => {
