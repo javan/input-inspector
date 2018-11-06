@@ -1,3 +1,5 @@
+import { diffChars } from "diff"
+
 const elements = {
   editor: document.getElementById("editor"),
   entriesHeader: document.getElementById("entries-header"),
@@ -18,11 +20,11 @@ const eventNames = [
 ]
 
 eventNames.forEach(eventName =>
-  elements.editor.addEventListener(eventName, recordEvent)
+  elements.editor.addEventListener(eventName, record)
 )
 
-new MutationObserver(records =>
-  Array.from(records).forEach(recordMutation)
+new MutationObserver(mutations =>
+  Array.from(mutations).forEach(record)
 ).observe(elements.editor, {
   childList: true,
   subtree: true,
@@ -30,34 +32,17 @@ new MutationObserver(records =>
   characterDataOldValue: true
 })
 
-function recordEvent(event) {
-  const { type, key, code, cancelable, isComposing, inputType, data } = event
-  const constructorName = event.constructor.name
-  record("event", { constructorName, type, key, code, cancelable, isComposing, inputType, data })
-}
-
-function recordMutation(mutation) {
-  const { type, target, oldValue, removedNodes, addedNodes } = mutation
-  const constructorName = mutation.constructor.name
-  const data = { type, constructorName }
-
-  if (type == "characterData") {
-    const oldTarget = target.cloneNode()
-    oldTarget.nodeValue = oldValue
-    data.oldNode = format(oldTarget)
-    data.newNode = format(target)
+function record(object) {
+  let type
+  if (object instanceof Event) {
+    type = "event"
+  } else if (object instanceof MutationRecord) {
+    type = "mutation"
   }
-  if (type == "childList") {
-    data.removedNodes = Array.from(removedNodes, (node) => format(node))
-    data.addedNodes = Array.from(addedNodes, (node) => format(node))
-  }
-
-  record("mutation", data)
-}
-
-function record(type, entry) {
+  const constructorName = object.constructor.name
   const time = performance.now()
-  records.push({ type, time, entry })
+  const data = serializers[type](object)
+  records.push({ type, constructorName, time, data })
   render()
 }
 
@@ -69,46 +54,75 @@ function render() {
     rendering = false
     elements.entriesHeader.hidden = records.length == 0
     elements.entriesBody.innerHTML = records.map((record, index) => `
-      <tr class="${record.entry.constructorName}">
+      <tr class="${record.constructorName}">
         <td>${index + 1}</td>
-        <td>${format(record.entry.constructorName)}</td>
-        ${renderers[record.type](record.entry)}
+        <td>${format(record.constructorName)}</td>
+        ${renderers[record.type](record.data)}
       </tr>
     `).reverse().join("\n")
   })
 }
 
+const serializers = {
+  event: (event) => {
+    const { type, key, code, cancelable, isComposing, inputType, data } = event
+    return { type, key, code, cancelable, isComposing, inputType, data }
+  },
+
+  mutation: (mutation) => {
+    const { type } = mutation
+    const data = { type }
+    if (type == "characterData") {
+      data.oldValue = mutation.oldValue
+      data.newValue = mutation.target.nodeValue
+    }
+    if (type == "childList") {
+      data.removedNodes = Array.from(mutation.removedNodes, (node) => node.cloneNode(true))
+      data.addedNodes = Array.from(mutation.addedNodes, (node) => node.cloneNode(true))
+    }
+    return data
+  }
+}
+
 const renderers = {
-  event: (entry) => {
-    const { type, key, code, cancelable, isComposing, inputType, data } = entry
+  event: (data) => {
     return `
-      <td>${format(type)}</td>
-      <td>${escape(format(key))}</td>
-      <td>${format(code)}</td>
-      <td>${format(cancelable)}</td>
-      <td>${format(isComposing)}</td>
-      <td>${format(inputType)}</td>
-      <td>${escape(format(data))}</td>
+      <td>${format(data.type)}</td>
+      <td>${format(data.key)}</td>
+      <td>${format(data.code)}</td>
+      <td>${format(data.cancelable)}</td>
+      <td>${format(data.isComposing)}</td>
+      <td>${format(data.inputType)}</td>
+      <td>${escape(format(data.data))}</td>
     `
   },
 
-  mutation: (entry) => {
+  mutation: (data) => {
     const lines = []
-    if (entry.type == "characterData") {
-      lines.push(`${entry.oldNode} → ${entry.newNode}`)
+    if (data.type == "characterData") {
+      const html = diffChars(data.oldValue, data.newValue).map(part => {
+        let tagName = "span"
+        if (part.added) {
+          tagName = "ins"
+        } else if (part.removed) {
+          tagName = "del"
+        }
+        return `<${tagName} class="diff diff--text">${escape(part.value)}</${tagName}>`
+      }).join("")
+      lines.push(`"${html}"`)
     }
-    if (entry.type == "childList") {
-      Array.from(entry.addedNodes).forEach(node => {
-        lines.push(`+ ${node}`)
+    if (data.type == "childList") {
+      Array.from(data.addedNodes).forEach(node => {
+        lines.push(`<ins class="diff diff--node">${escape(format(node))}</ins>`)
       })
-      Array.from(entry.removedNodes).forEach(node => {
-        lines.push(`- ${node}`)
+      Array.from(data.removedNodes).forEach(node => {
+        lines.push(`<del class="diff diff--node">${escape(format(node))}</del>`)
       })
     }
     return `
-      <td>${format(entry.type)}</td>
+      <td>${format(data.type)}</td>
       <td colspan="6">
-        ${lines.map(line => escape(line)).join("<br>")}
+        ${lines.join("<br>")}
       </td>
     `
   }

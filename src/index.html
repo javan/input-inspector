@@ -57,6 +57,28 @@
         max-width: 968px;
       }
 
+      .diff {
+        text-decoration: none;
+        border-radius: 2px;
+        padding: 1px 2px;
+      }
+
+      ins.diff {
+        background-color: #acf2bd;
+      }
+
+      del.diff {
+        background-color: #fdb8c0;
+      }
+
+      ins.diff--node::before {
+        content: "+ ";
+      }
+
+      del.diff--node::before {
+        content: "- ";
+      }
+
       .editor {
         min-height: 6em;
         border: 1px solid #ccc;
