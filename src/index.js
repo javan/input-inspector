@@ -47,19 +47,23 @@ function record(object) {
 }
 
 let rendering = false
+let renderIndex = 0
 function render() {
   if (rendering) return
   rendering = true
   requestAnimationFrame(() => {
     rendering = false
-    elements.entriesHeader.hidden = records.length == 0
-    elements.entriesBody.innerHTML = records.map((record, index) => `
-      <tr class="${record.constructorName}">
-        <td>${index + 1}</td>
-        <td>${format(record.constructorName)}</td>
-        ${renderers[record.type](record.data)}
-      </tr>
-    `).reverse().join("\n")
+    const newRecords = records.slice(renderIndex)
+    newRecords.forEach((record, index) => {
+      elements.entriesBody.insertAdjacentHTML("afterbegin", `
+        <tr class="${record.constructorName}">
+          <td>${index + renderIndex + 1}</td>
+          <td>${format(record.constructorName)}</td>
+          ${renderers[record.type](record.data)}
+        </tr>
+      `)
+    })
+    renderIndex += newRecords.length
   })
 }
 
