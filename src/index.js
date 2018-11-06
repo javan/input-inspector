@@ -108,33 +108,27 @@ const renderers = {
   },
 
   mutation: (data) => {
-    const lines = []
-    if (data.type == "characterData") {
-      const html = diffChars(data.oldValue, data.newValue).map(part => {
-        let tagName = "span"
-        if (part.added) {
-          tagName = "ins"
-        } else if (part.removed) {
-          tagName = "del"
-        }
-        return `<${tagName} class="diff diff--text">${escape(part.value)}</${tagName}>`
-      }).join("")
-      lines.push(`"${html}"`)
-    }
-    if (data.type == "childList") {
-      Array.from(data.addedNodes).forEach(node => {
-        lines.push(`<ins class="diff diff--node">${escape(format(node))}</ins>`)
-      })
-      Array.from(data.removedNodes).forEach(node => {
-        lines.push(`<del class="diff diff--node">${escape(format(node))}</del>`)
-      })
-    }
     return `
       <td>${format(data.type)}</td>
       <td colspan="6">
-        ${lines.join("<br>")}
+        ${renderers[`${data.type}Mutation`](data)}
       </td>
     `
+  },
+
+  characterDataMutation: (data) => {
+    return diffChars(data.oldValue, data.newValue).map(part => {
+      const tagName = part.added ? "ins" : part.removed ? "del" : "span"
+      return `<${tagName} class="diff diff--text">${escape(part.value)}</${tagName}>`
+    }).join("")
+  },
+
+  childListMutation: (data) => {
+    return data.addedNodes.map(node =>
+      `<ins class="diff diff--node">${escape(format(node))}</ins>`
+    ).concat(data.removedNodes.map(node =>
+      `<del class="diff diff--node">${escape(format(node))}</del>`
+    )).join("<br>")
   }
 }
 
