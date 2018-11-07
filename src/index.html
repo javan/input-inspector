@@ -15,6 +15,21 @@
         padding: 10px;
       }
 
+      .editor {
+        min-height: 6em;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 10px;
+        outline: none;
+        margin-bottom: 10px;
+      }
+
+      .editor:empty::before {
+        content: attr(data-placeholder);
+        color: graytext;
+        cursor: text;
+      }
+
       table {
         width: 100%;
         border-collapse: collapse;
@@ -100,20 +115,11 @@
       .symbol--false {
         opacity: 0.25;
       }
-
-      .editor {
-        min-height: 6em;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        padding: 10px;
-        outline: none;
-        margin-bottom: 10px;
-      }
     </style>
   </head>
   <body>
     <main>
-      <div id="editor" class="editor" spellcheck="false" contenteditable></div>
+      <div id="editor" class="editor" spellcheck="false" contenteditable="true" data-placeholder="Type here…"></div>
 
       <table>
         <thead id="entries-header">
