@@ -57,6 +57,18 @@
         max-width: 968px;
       }
 
+      .node {
+        position: relative;
+      }
+
+      .node--text::before {
+        content: "“";
+      }
+
+      .node--text::after {
+        content: "”";
+      }
+
       .diff {
         text-decoration: none;
         position: relative;
@@ -82,6 +94,11 @@
 
       del.diff--node::before {
         content: "- ";
+      }
+
+      .symbol--null,
+      .symbol--false {
+        opacity: 0.25;
       }
 
       .editor {

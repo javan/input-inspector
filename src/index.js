@@ -103,7 +103,7 @@ const renderers = {
       <td>${format(data.cancelable)}</td>
       <td>${format(data.isComposing)}</td>
       <td>${format(data.inputType)}</td>
-      <td>${escape(format(data.data))}</td>
+      <td>${format(data.data)}</td>
     `
   },
 
@@ -117,36 +117,40 @@ const renderers = {
   },
 
   characterDataMutation: (data) => {
-    return diffChars(data.oldValue, data.newValue).map(part => {
+    const diff = diffChars(data.oldValue, data.newValue)
+    const diffHTML = diff.map(part => {
       const tagName = part.added ? "ins" : part.removed ? "del" : "span"
-      return `<${tagName} class="diff diff--text">${escape(part.value)}</${tagName}>`
+      return `<${tagName} class="diff diff--text">${format(part.value)}</${tagName}>`
     }).join("")
+    return `<span class="node node--text">${diffHTML}</span>`
   },
 
   childListMutation: (data) => {
     return data.addedNodes.map(node =>
-      `<ins class="diff diff--node">${escape(format(node))}</ins>`
+      `<ins class="diff diff--node">${format(node)}</ins>`
     ).concat(data.removedNodes.map(node =>
-      `<del class="diff diff--node">${escape(format(node))}</del>`
+      `<del class="diff diff--node">${format(node)}</del>`
     )).join("<br>")
   }
 }
 
 function format(value) {
   if (typeof value == "undefined" || value == null) {
-    return "∅"
+    return `<span class="symbol symbol--null">∅</span>`
   }
   if (typeof value == "boolean") {
-    return value ? "✓" : "×"
+    return value
+      ? `<span class="symbol symbol--true">✓</span>`
+      : `<span class="symbol symbol--false">×</span>`
   }
   if (value instanceof Node) {
     if (value.nodeType == Node.ELEMENT_NODE) {
-      return value.outerHTML
+      return `<span class="node node--element">${escape(value.outerHTML)}</span>`
     } else {
-      return `<${value.nodeName}>"${value.nodeValue}"`
+      return `<span class="node node--text">${escape(value.data)}</span>`
     }
   }
-  return String(value)
+  return escape(value)
 }
 
 const escapeElement = document.createElement("div")
