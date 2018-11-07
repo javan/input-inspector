@@ -87,10 +87,21 @@ const serializers = {
       data.newValue = mutation.target.nodeValue
     }
     if (type == "childList") {
-      data.removedNodes = Array.from(mutation.removedNodes, (node) => node.cloneNode(true))
-      data.addedNodes = Array.from(mutation.addedNodes, (node) => node.cloneNode(true))
+      data.removedNodes = Array.from(mutation.removedNodes, serializers.node)
+      data.addedNodes = Array.from(mutation.addedNodes, serializers.node)
     }
     return data
+  },
+
+  node: (node) => {
+    switch (node.nodeType) {
+      case Node.TEXT_NODE:
+        return { type: "text", value: node.data }
+      case Node.ELEMENT_NODE:
+        return { type: "element", value: node.outerHTML }
+      case Node.COMMENT_NODE:
+        return { type: "comment", value: node.data }
+    }
   }
 }
 
@@ -126,10 +137,10 @@ const renderers = {
   },
 
   childListMutation: (data) => {
-    return data.addedNodes.map(node =>
-      `<ins class="diff diff--node">${format(node)}</ins>`
-    ).concat(data.removedNodes.map(node =>
-      `<del class="diff diff--node">${format(node)}</del>`
+    return data.removedNodes.map(({ type, value }) =>
+      `<ins class="diff diff--node"><span class="node node--${type}">${format(value)}</span></ins>`
+    ).concat(data.addedNodes.map(({ type, value }) =>
+      `<del class="diff diff--node"><span class="node node--${type}">${format(value)}</span</del>`
     )).join("<br>")
   }
 }
@@ -142,13 +153,6 @@ function format(value) {
     return value
       ? `<span class="symbol symbol--true">✓</span>`
       : `<span class="symbol symbol--false">×</span>`
-  }
-  if (value instanceof Node) {
-    if (value.nodeType == Node.ELEMENT_NODE) {
-      return `<span class="node node--element">${escape(value.outerHTML)}</span>`
-    } else {
-      return `<span class="node node--text">${escape(value.data)}</span>`
-    }
   }
   return escape(value)
 }
