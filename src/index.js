@@ -1,3 +1,4 @@
+import "./index.css"
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
