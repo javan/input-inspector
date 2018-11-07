@@ -118,11 +118,21 @@
     </style>
   </head>
   <body>
-    <main>
-      <div id="editor" class="editor" contenteditable="true" data-placeholder="Type here…"></div>
+    <main data-controller="timeline">
+      <div class="editor" contenteditable="true"
+        data-placeholder="Type here…"
+        data-target="timeline.editor"
+        data-action="
+          beforeinput->timeline#record
+          compositionstart->timeline#record
+          compositionupdate->timeline#record
+          compositionend->timeline#record
+          input->timeline#record
+          keydown->timeline#record
+        "></div>
 
       <table>
-        <thead id="entries-header">
+        <thead>
           <tr>
             <th>#</th>
             <th>Constructor</th>
@@ -135,7 +145,7 @@
             <th>data</th>
           </tr>
         </thead>
-        <tbody id="entries-body"></tbody>
+        <tbody data-target="timeline.entries"></tbody>
       </table>
     </main>
   </body>
