@@ -59,6 +59,11 @@
 
       .diff {
         text-decoration: none;
+        position: relative;
+      }
+
+      ins.diff,
+      del.diff {
         border-radius: 2px;
         padding: 1px 2px;
       }
@@ -72,11 +77,11 @@
       }
 
       ins.diff--node::before {
-        content: "+ ";
+        content: "+ ";
       }
 
       del.diff--node::before {
-        content: "- ";
+        content: "- ";
       }
 
       .editor {
