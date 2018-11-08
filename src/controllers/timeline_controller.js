@@ -113,11 +113,10 @@ const views = {
 
   characterDataMutation: (data) => {
     const diff = diffChars(data.oldValue, data.newValue)
-    const diffHTML = diff.map(part => {
+    return diff.map(part => {
       const tagName = part.added ? "ins" : part.removed ? "del" : "span"
       return `<${tagName} class="diff diff--text">${format(part.value)}</${tagName}>`
     }).join("")
-    return `<span class="node node--text">${diffHTML}</span>`
   },
 
   childListMutation: (data) => {
