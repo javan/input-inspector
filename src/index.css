@@ -77,6 +77,8 @@ abbr.row-type {
 
 .entry-col--symbol {
   width: 1em;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .InputEvent {
@@ -98,6 +100,18 @@ abbr.row-type {
 abbr, acronym {
   text-decoration: none;
   cursor: help;
+}
+
+kbd {
+  background-color: #fafbfc;
+  border: 1px solid #c6cbd1;
+  border-bottom-color: #959da5;
+  border-radius: 3px;
+  color: #444d56;
+  display: inline-block;
+  font-size: 8px;
+  line-height: 6px;
+  padding: 3px 4px 2px 3px;
 }
 
 main {

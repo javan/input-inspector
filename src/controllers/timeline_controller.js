@@ -64,9 +64,7 @@ const views = {
     return `
       <td>${format(data.code)}</td>
       <td>${format(data.key)}</td>
-      <td>${format(data.cancelable)}</td>
-      <td>${format(data.isComposing)}</td>
-      <td>${format(data.repeat)}</td>
+      ${views.event(data)}
     `
   },
 
@@ -74,24 +72,40 @@ const views = {
     return `
       <td>${format(data.inputType)}</td>
       <td>${format(data.data)}</td>
-      <td>${format(data.cancelable)}</td>
-      <td>${format(data.isComposing)}</td>
-      <td>${format(data.repeat)}</td>
+      ${views.event(data)}
     `
   },
 
   CompositionEvent: (data) => {
     return `
       <td colspan="2">${format(data.data)}</td>
-      <td>${format(data.cancelable)}</td>
-      <td>${format(data.isComposing)}</td>
-      <td>${format(data.repeat)}</td>
+      ${views.event(data)}
     `
+  },
+
+  event: (data) => {
+    return `
+      <td class="entry-col--symbol">${views.eventKeys(data)}</td>
+      <td class="entry-col--symbol">${format(data.cancelable)}</td>
+      <td class="entry-col--symbol">${format(data.isComposing)}</td>
+      <td class="entry-col--symbol">${format(data.repeat)}</td>
+    `
+  },
+
+  eventKeys: (data) => {
+    const keys = []
+    if (data.altKey)   keys.push("option")
+    if (data.ctrlKey)  keys.push("control")
+    if (data.metaKey)  keys.push("command")
+    if (data.shiftKey) keys.push("shift")
+    return keys.length
+      ? keys.map(key => `<kbd>${key}</kbd>`).join("")
+      : format(null)
   },
 
   MutationRecord: (data) => {
     return `
-      <td colspan="5">
+      <td colspan="6">
         ${views[`${data.type}Mutation`](data)}
       </td>
     `
