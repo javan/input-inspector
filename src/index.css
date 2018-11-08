@@ -27,7 +27,7 @@ body {
 }
 
 table {
-  width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
@@ -38,6 +38,7 @@ th, td {
   position: relative;
   padding: 0 4px;
   text-align: left;
+  white-space: nowrap;
 }
 
 th {
@@ -67,24 +68,6 @@ abbr.row-type {
   height: 1em;
   border: 1px solid #ccc;
   border-radius: 1px;
-}
-
-.entry-col--index {
-  width: 3em;
-}
-
-.entry-col--constructor {
-  width: 12em;
-}
-
-.entry-col--type {
-  width: 12em;
-}
-
-.entry-col--symbol {
-  width: 1em;
-  white-space: nowrap;
-  text-align: center;
 }
 
 .InputEvent {
@@ -161,6 +144,12 @@ ins.diff--node::before {
 
 del.diff--node::before {
   content: "- ";
+}
+
+.symbol {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
 }
 
 .symbol--null,

@@ -85,10 +85,10 @@ const views = {
 
   event: (data) => {
     return `
-      <td class="entry-col--symbol">${views.eventKeys(data)}</td>
-      <td class="entry-col--symbol">${format(data.repeat)}</td>
-      <td class="entry-col--symbol">${format(data.isComposing)}</td>
-      <td class="entry-col--symbol">${format(data.cancelable)}</td>
+      <td>${views.eventKeys(data)}</td>
+      <td>${format(data.repeat)}</td>
+      <td>${format(data.isComposing)}</td>
+      <td>${format(data.cancelable)}</td>
     `
   },
 
