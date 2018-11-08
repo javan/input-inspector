@@ -1,6 +1,6 @@
 import { Controller } from "stimulus"
-import { diffChars } from "diff"
 import { Timeline } from "../models/timeline"
+import { TimelineEntryView } from "../views/timeline_entry_view"
 
 export default class extends Controller {
   static targets = [ "editor", "entries" ]
@@ -39,109 +39,11 @@ export default class extends Controller {
       const entries = this.timeline.slice(this.renderIndex)
       const { entriesTarget } = this
       entries.forEach((entry, index) => {
-        const html = views.entry(entry, index + this.renderIndex + 1)
+        const html = TimelineEntryView.render(entry, index + this.renderIndex + 1)
         entriesTarget.insertAdjacentHTML("afterbegin", html)
       })
       this.rendering = false
       this.renderIndex += entries.length
     })
   }
-}
-
-const views = {
-  entry: (entry, index) => {
-    return `
-      <tr class="${entry.constructorName}">
-        <td>${index}</td>
-        <td>${format(entry.constructorName)}</td>
-        <td>${format(entry.data.type)}</td>
-        ${views[entry.constructorName](entry.data)}
-      </tr>
-    `
-  },
-
-  KeyboardEvent: (data) => {
-    return `
-      <td>${format(data.key)}</td>
-      <td>${format(data.code)}</td>
-      ${views.event(data)}
-    `
-  },
-
-  InputEvent: (data) => {
-    return `
-      <td>${format(data.data)}</td>
-      <td>${format(data.inputType)}</td>
-      ${views.event(data)}
-    `
-  },
-
-  CompositionEvent: (data) => {
-    return `
-      <td colspan="2">${format(data.data)}</td>
-      ${views.event(data)}
-    `
-  },
-
-  event: (data) => {
-    return `
-      <td>${views.eventKeys(data)}</td>
-      <td>${format(data.repeat)}</td>
-      <td>${format(data.isComposing)}</td>
-      <td>${format(data.cancelable)}</td>
-    `
-  },
-
-  eventKeys: (data) => {
-    const keys = []
-    if (data.altKey)   keys.push("option")
-    if (data.ctrlKey)  keys.push("control")
-    if (data.metaKey)  keys.push("command")
-    if (data.shiftKey) keys.push("shift")
-    return keys.length
-      ? keys.map(key => `<kbd>${key}</kbd>`).join("")
-      : format(null)
-  },
-
-  MutationRecord: (data) => {
-    return `
-      <td colspan="6">
-        ${views[`${data.type}Mutation`](data)}
-      </td>
-    `
-  },
-
-  characterDataMutation: (data) => {
-    const diff = diffChars(data.oldValue, data.newValue)
-    return diff.map(part => {
-      const tagName = part.added ? "ins" : part.removed ? "del" : "span"
-      return `<${tagName} class="diff diff--text">${format(part.value)}</${tagName}>`
-    }).join("")
-  },
-
-  childListMutation: (data) => {
-    return data.removedNodes.map(({ type, value }) =>
-      `<ins class="diff diff--node"><span class="node node--${type}">${format(value)}</span></ins>`
-    ).concat(data.addedNodes.map(({ type, value }) =>
-      `<del class="diff diff--node"><span class="node node--${type}">${format(value)}</span></del>`
-    )).join("<br>")
-  }
-}
-
-function format(value) {
-  if (typeof value == "undefined" || value == null) {
-    return `<abbr title="null or undefined" class="symbol symbol--null">∅</abbr>`
-  }
-  if (typeof value == "boolean") {
-    return value
-      ? `<abbr title="true" class="symbol symbol--true">✓</abbr>`
-      : `<abbr title="false" class="symbol symbol--false">×</abbr>`
-  }
-  return escape(value)
-}
-
-const escapeElement = document.createElement("div")
-function escape(html) {
-  escapeElement.textContent = html
-  return escapeElement.innerHTML
 }
