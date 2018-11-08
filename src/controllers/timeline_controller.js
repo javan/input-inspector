@@ -62,16 +62,16 @@ const views = {
 
   KeyboardEvent: (data) => {
     return `
-      <td>${format(data.code)}</td>
       <td>${format(data.key)}</td>
+      <td>${format(data.code)}</td>
       ${views.event(data)}
     `
   },
 
   InputEvent: (data) => {
     return `
-      <td>${format(data.inputType)}</td>
       <td>${format(data.data)}</td>
+      <td>${format(data.inputType)}</td>
       ${views.event(data)}
     `
   },
