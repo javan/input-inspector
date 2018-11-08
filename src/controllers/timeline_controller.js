@@ -66,6 +66,7 @@ const views = {
       <td>${format(data.key)}</td>
       <td>${format(data.cancelable)}</td>
       <td>${format(data.isComposing)}</td>
+      <td>${format(data.repeat)}</td>
     `
   },
 
@@ -75,6 +76,7 @@ const views = {
       <td>${format(data.data)}</td>
       <td>${format(data.cancelable)}</td>
       <td>${format(data.isComposing)}</td>
+      <td>${format(data.repeat)}</td>
     `
   },
 
@@ -83,12 +85,13 @@ const views = {
       <td colspan="2">${format(data.data)}</td>
       <td>${format(data.cancelable)}</td>
       <td>${format(data.isComposing)}</td>
+      <td>${format(data.repeat)}</td>
     `
   },
 
   MutationRecord: (data) => {
     return `
-      <td colspan="4">
+      <td colspan="5">
         ${views[`${data.type}Mutation`](data)}
       </td>
     `
