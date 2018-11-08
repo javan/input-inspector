@@ -86,9 +86,9 @@ const views = {
   event: (data) => {
     return `
       <td class="entry-col--symbol">${views.eventKeys(data)}</td>
-      <td class="entry-col--symbol">${format(data.cancelable)}</td>
-      <td class="entry-col--symbol">${format(data.isComposing)}</td>
       <td class="entry-col--symbol">${format(data.repeat)}</td>
+      <td class="entry-col--symbol">${format(data.isComposing)}</td>
+      <td class="entry-col--symbol">${format(data.cancelable)}</td>
     `
   },
 
@@ -130,12 +130,12 @@ const views = {
 
 function format(value) {
   if (typeof value == "undefined" || value == null) {
-    return `<span class="symbol symbol--null">∅</span>`
+    return `<abbr title="null or undefined" class="symbol symbol--null">∅</abbr>`
   }
   if (typeof value == "boolean") {
     return value
-      ? `<span class="symbol symbol--true">✓</span>`
-      : `<span class="symbol symbol--false">×</span>`
+      ? `<abbr title="true" class="symbol symbol--true">✓</abbr>`
+      : `<abbr title="false" class="symbol symbol--false">×</abbr>`
   }
   return escape(value)
 }
