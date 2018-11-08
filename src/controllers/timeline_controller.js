@@ -54,27 +54,41 @@ const views = {
       <tr class="${entry.constructorName}">
         <td>${index}</td>
         <td>${format(entry.constructorName)}</td>
-        ${views[entry.type](entry.data)}
+        <td>${format(entry.data.type)}</td>
+        ${views[entry.constructorName](entry.data)}
       </tr>
     `
   },
 
-  event: (data) => {
+  KeyboardEvent: (data) => {
     return `
-      <td>${format(data.type)}</td>
-      <td>${format(data.key)}</td>
       <td>${format(data.code)}</td>
+      <td>${format(data.key)}</td>
       <td>${format(data.cancelable)}</td>
       <td>${format(data.isComposing)}</td>
-      <td>${format(data.inputType)}</td>
-      <td>${format(data.data)}</td>
     `
   },
 
-  mutation: (data) => {
+  InputEvent: (data) => {
     return `
-      <td>${format(data.type)}</td>
-      <td colspan="6">
+      <td>${format(data.inputType)}</td>
+      <td>${format(data.data)}</td>
+      <td>${format(data.cancelable)}</td>
+      <td>${format(data.isComposing)}</td>
+    `
+  },
+
+  CompositionEvent: (data) => {
+    return `
+      <td colspan="2">${format(data.data)}</td>
+      <td>${format(data.cancelable)}</td>
+      <td>${format(data.isComposing)}</td>
+    `
+  },
+
+  MutationRecord: (data) => {
+    return `
+      <td colspan="4">
         ${views[`${data.type}Mutation`](data)}
       </td>
     `

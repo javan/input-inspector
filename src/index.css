@@ -31,36 +31,73 @@ table {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
-td, th {
+th, td {
+  position: relative;
+  padding: 4px;
   text-align: left;
-  padding: 4px 8px;
   font-size: 12px;
-  border: 1px solid #ccc;
 }
 
-th {
-  border-color: #333;
+th[rowspan] {
+  vertical-align: bottom;
+  border: none;
 }
 
 thead tr {
-  background-color: #333;
-  color: white;
+  border-bottom: 1px dotted #eee;
 }
 
-tr.InputEvent {
+tbody tr {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+abbr.row-type {
+  display: inline-block;
+  position: absolute;
+  left: -1em;
+  margin-top: 0.1em;
+  width: 0.9em;
+  height: 0.9em;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+}
+
+.entry-col--index {
+  width: 3em;
+}
+
+.entry-col--constructor {
+  width: 12em;
+}
+
+.entry-col--type {
+  width: 12em;
+}
+
+.entry-col--symbol {
+  width: 1em;
+}
+
+.InputEvent {
   background-color: #f4ffff;
 }
 
-tr.KeyboardEvent {
+.KeyboardEvent {
   background-color: #d9e5f1;
 }
 
-tr.CompositionEvent {
+.CompositionEvent {
   background-color: #d8ebff;
 }
 
-tr.MutationRecord {
+.MutationRecord {
   background-color: #f7f0e0;
+}
+
+abbr, acronym {
+  text-decoration: none;
+  cursor: help;
 }
 
 main {
