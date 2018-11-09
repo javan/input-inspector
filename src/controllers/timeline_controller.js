@@ -1,6 +1,5 @@
 import { Controller } from "stimulus"
-import { Timeline } from "../models/timeline"
-import { Session } from "../models/session"
+import { Profile } from "../models/profile"
 import { Recorder } from "../models/recorder"
 import { TimelineView } from "../views/timeline_view"
 
@@ -8,12 +7,11 @@ export default class extends Controller {
   static targets = [ "editor", "caption", "entries" ]
 
   initialize() {
-    this.timeline = new Timeline
-    this.session = new Session(this.timeline)
-    this.recorder = new Recorder(this.timeline, this.editorTarget)
-    this.timelineView = new TimelineView(this.timeline, this.entriesTarget)
+    this.profile = Profile.create()
+    this.recorder = new Recorder(this.profile.timeline, this.editorTarget)
+    this.timelineView = new TimelineView(this.profile.timeline, this.entriesTarget)
 
-    this.captionTarget.textContent = this.session.userAgent
+    this.captionTarget.textContent = this.profile.userAgent
     this.editorTarget.focus()
   }
 

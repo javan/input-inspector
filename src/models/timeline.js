@@ -1,6 +1,6 @@
 export class Timeline {
-  constructor() {
-    this.entries = []
+  constructor(entries = []) {
+    this.entries = entries
   }
 
   record(object, snapshot) {
