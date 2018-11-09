@@ -1,9 +1,9 @@
 import { Timeline } from "./timeline"
 
 export class Recorder {
-  constructor(element) {
+  constructor(timeline, element) {
+    this.timeline = timeline
     this.element = element
-    this.timeline = new Timeline
     this.observer = new MutationObserver(this.recordMutations.bind(this))
     this.start()
   }
@@ -27,10 +27,6 @@ export class Recorder {
 
   get snapshot() {
     return `<div class="${this.element.className}">${this.element.innerHTML}</div>`
-  }
-
-  get userAgent() {
-    return navigator.userAgent
   }
 
   // Private

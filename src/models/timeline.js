@@ -29,6 +29,10 @@ export class Timeline {
     return this.entries.slice(...args)
   }
 
+  toJSON() {
+    return this.entries
+  }
+
   // Private
 
   serializeEvent(event) {
