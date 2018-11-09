@@ -50,6 +50,10 @@ th[rowspan] {
   border: none;
 }
 
+td[colspan] {
+  white-space: normal;
+}
+
 thead tr {
   border-bottom: 1px dotted #eee;
 }
