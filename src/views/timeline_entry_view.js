@@ -18,7 +18,10 @@ export class TimelineEntryView {
     const { constructorName } = this.entry
     return `
       <tr class="${constructorName}">
-        <td>${this.index}</td>
+        <td class="snapshot-container" tabindex="0">
+          <span class="snapshot-trigger">${this.index}</span>
+          <div class="snapshot-content">${this.entry.snapshot}</div>
+        </td>
         <td>${format(constructorName)}</td>
         <td>${format(this.data.type)}</td>
         ${this[constructorName]()}

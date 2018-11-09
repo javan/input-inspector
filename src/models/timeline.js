@@ -3,8 +3,9 @@ export class Timeline {
     this.entries = []
   }
 
-  record(object) {
+  record(object, snapshot) {
     const entry = {
+      snapshot,
       time: performance.now(),
       constructorName: object.constructor.name
     }
