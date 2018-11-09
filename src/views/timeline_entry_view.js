@@ -92,9 +92,9 @@ export class TimelineEntryView {
 
   childListMutation() {
     return this.data.removedNodes.map(({ type, value }) =>
-      `<ins class="diff diff--node"><span class="node node--${type}">${format(value)}</span></ins>`
-    ).concat(this.data.addedNodes.map(({ type, value }) =>
       `<del class="diff diff--node"><span class="node node--${type}">${format(value)}</span></del>`
+    ).concat(this.data.addedNodes.map(({ type, value }) =>
+      `<ins class="diff diff--node"><span class="node node--${type}">${format(value)}</span></ins>`
     )).join("<br>")
   }
 }
