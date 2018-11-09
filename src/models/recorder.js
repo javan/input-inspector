@@ -26,7 +26,7 @@ export class Recorder {
   }
 
   get snapshot() {
-    return `<div class="${this.element.className}">${this.element.innerHTML}</div>`
+    return this.element.innerHTML
   }
 
   // Private
