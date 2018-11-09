@@ -25,13 +25,17 @@ export class Recorder {
     return this.timeline.record(object, this.snapshot)
   }
 
+  get snapshot() {
+    return `<div class="${this.element.className}">${this.element.innerHTML}</div>`
+  }
+
+  get userAgent() {
+    return navigator.userAgent
+  }
+
   // Private
 
   recordMutations(mutations) {
     Array.from(mutations).forEach(mutation => this.record(mutation))
-  }
-
-  get snapshot() {
-    return `<div class="${this.element.className}">${this.element.innerHTML}</div>`
   }
 }

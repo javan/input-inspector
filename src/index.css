@@ -34,7 +34,14 @@ table {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
   line-height: 20px;
-  margin-top: 10px;
+}
+
+table caption {
+  caption-side: top;
+  font-size: 11px;
+  font-weight: normal;
+  color: #666;
+  margin: 1rem 0;
 }
 
 th, td {
