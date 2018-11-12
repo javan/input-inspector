@@ -22,6 +22,6 @@ export default class extends Controller {
 
   async save() {
     await this.profile.save()
-    window.location = `profile.html?id=${this.profile.id}`
+    window.location = `/p/${this.profile.id}`
   }
 }

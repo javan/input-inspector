@@ -18,6 +18,6 @@ export default class extends Controller {
   }
 
   get id() {
-    return window.location.search.match(/id=([^&]+)/)[1]
+    return window.location.pathname.match(/\/p\/([^\/]+)/)[1]
   }
 }

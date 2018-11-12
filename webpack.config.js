@@ -2,7 +2,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
-const publicPath = path.resolve(__dirname, "public")
 module.exports = {
   entry: {
     main: "./src/index.js"
@@ -11,7 +10,8 @@ module.exports = {
   output: {
     filename: "[name]-[contenthash].js",
     chunkFilename: "[name]-[contenthash].js",
-    path: publicPath
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/"
   },
 
   mode: "production",
@@ -33,8 +33,7 @@ module.exports = {
   },
 
   devServer: {
-    hot: false,
-    contentBase: publicPath
+    hot: false
   },
 
   optimization: {

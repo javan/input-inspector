@@ -25,6 +25,6 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "now-build": "webpack"
   }
 }

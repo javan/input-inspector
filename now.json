@@ -1,6 +1,11 @@
 {
-  "type": "static",
-  "public": true,
+  "version": 2,
   "name": "input-inspector",
-  "alias": "input-inspector.now.sh"
+  "alias": "input-inspector.now.sh",
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" }
+  ],
+  "routes": [
+    { "src": "/p/(?<id>\\w+)", "dest": "/profile.html?id=$id" }
+  ]
 }
