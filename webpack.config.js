@@ -10,6 +10,7 @@ module.exports = {
 
   output: {
     filename: "[name]-[contenthash].js",
+    chunkFilename: "[name]-[contenthash].js",
     path: publicPath
   },
 
@@ -43,6 +44,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "index.html"
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/profile.html",
+      filename: "profile.html"
     })
   ]
 }

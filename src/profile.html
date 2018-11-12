@@ -4,22 +4,11 @@
     <title>Input Inspector</title>
   </head>
   <body>
-    <main data-controller="timeline">
-      <div class="editor" contenteditable="true"
-        data-placeholder="Type here…"
-        data-target="timeline.editor"
-        data-action="
-          beforeinput->timeline#record
-          compositionstart->timeline#record
-          compositionupdate->timeline#record
-          compositionend->timeline#record
-          input->timeline#record
-          keydown->timeline#record
-        "></div>
+    <main data-controller="profile">
+      <div class="editor" data-target="profile.snapshot"></div>
 
-      <button data-action="timeline#save">Save</button>
       <table>
-        <caption data-target="timeline.caption"></caption>
+        <caption data-target="profile.caption"></caption>
         <colgroup>
           <col style="width: 3em">
           <col style="width: 10em">
@@ -68,7 +57,7 @@
             <th rowspan="3"><abbr title="Event: cancelable" class="symbol">🚫</abbr></th>
           </tr>
         </thead>
-        <tbody data-target="timeline.entries"></tbody>
+        <tbody data-target="profile.timeline"></tbody>
       </table>
     </main>
   </body>

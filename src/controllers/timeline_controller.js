@@ -11,12 +11,17 @@ export default class extends Controller {
     this.recorder = new Recorder(this.profile.timeline, this.editorTarget)
     this.timelineView = new TimelineView(this.profile.timeline, this.entriesTarget)
 
-    this.captionTarget.textContent = this.profile.userAgent
+    this.captionTarget.textContent = this.profile.browser.navigator.userAgent
     this.editorTarget.focus()
   }
 
   record(object) {
     this.recorder.record(object)
     this.timelineView.render()
+  }
+
+  async save() {
+    await this.profile.save()
+    window.location = `profile.html?id=${this.profile.id}`
   }
 }
