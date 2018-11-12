@@ -37,6 +37,10 @@ module.exports = {
     contentBase: publicPath
   },
 
+  optimization: {
+    splitChunks: false
+  },
+
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name]-[contenthash].css",
