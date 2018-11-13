@@ -6,9 +6,35 @@
 
 body {
   padding: 10px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 15px;
   color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  max-width: 968px;
+  margin: 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+  font-size: 11px;
+  text-align: center;
+  margin: 3em 1em 0 1em;
+  color: #525252;
+}
+
+a {
+  color: inherit;
+}
+
+a:active,
+a:hover {
+  color: inherit;
+  outline: 0;
 }
 
 button {
@@ -41,11 +67,14 @@ button {
   justify-content: space-between;
   align-items: flex-start;
   margin: 1rem 0;
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 11px;
   line-height: 11px;
   font-weight: normal;
   color: #666;
+}
+
+.profile-browser {
+  padding-right: 2em;
 }
 
 .profile-actions {
@@ -65,7 +94,6 @@ button {
 table {
   table-layout: fixed;
   border-collapse: collapse;
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
   line-height: 20px;
 }
@@ -141,10 +169,6 @@ kbd {
   font-size: 8px;
   line-height: 6px;
   padding: 3px 4px 2px 3px;
-}
-
-main {
-  max-width: 968px;
 }
 
 .node {
