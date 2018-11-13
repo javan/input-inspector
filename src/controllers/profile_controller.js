@@ -19,7 +19,7 @@ export default class extends Controller {
 
   async save() {
     await this.profile.save()
-    this.navigateTo(`/p/${this.profile.id}`)
+    this.navigateTo(`/profiles/${this.profile.id}`)
   }
 
   // Private

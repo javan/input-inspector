@@ -13,7 +13,8 @@ export class ApplicationView {
   // Private
 
   get profileId() {
-    const match = location.toString().match(/(\/p\/|\?id=)([^\/]+)/)
-    return match && match[2] ? match[2] : ""
+    const { pathname, search } = window.location
+    const match = pathname.match(/profiles\/(\w+)/) || search.match(/profileId=(\w+)/)
+    return match ? match[1] : ""
   }
 }
