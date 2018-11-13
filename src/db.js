@@ -17,5 +17,5 @@ export async function create(collectionName, data) {
 
 export async function load(collectionName, id) {
   const doc = await db.collection(collectionName).doc(id).get()
-  return doc.exists ? doc.data() : null
+  return doc.exists ? { id: doc.id, ...doc.data() } : null
 }

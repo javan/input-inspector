@@ -33,6 +33,10 @@ export class Timeline {
     return this.entries
   }
 
+  get length() {
+    return this.entries.length
+  }
+
   // Private
 
   serializeEvent(event) {

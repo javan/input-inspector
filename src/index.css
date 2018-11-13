@@ -11,6 +11,12 @@ body {
   color: #333;
 }
 
+button {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+}
+
 .editor,
 .snapshot {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -27,6 +33,33 @@ body {
   content: attr(data-placeholder);
   color: graytext;
   cursor: text;
+  color: #666;
+}
+
+.profile-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 1rem 0;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 11px;
+  line-height: 11px;
+  font-weight: normal;
+  color: #666;
+}
+
+.profile-actions {
+  visibility: hidden;
+}
+
+.has-timeline .profile-actions {
+  visibility: visible;
+}
+
+.profile-actions button {
+  outline: none;
+  padding: 3px 6px;
+  margin-top: -3px;
 }
 
 table {
@@ -35,14 +68,6 @@ table {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
   line-height: 20px;
-}
-
-table caption {
-  caption-side: top;
-  font-size: 11px;
-  font-weight: normal;
-  color: #666;
-  margin: 1rem 0;
 }
 
 th, td {

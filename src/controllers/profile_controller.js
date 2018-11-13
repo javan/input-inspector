@@ -9,7 +9,11 @@ export default class extends Controller {
   async initialize() {
     this.profile = await findOrCreateProfile(this.data.get("id"))
     this.view = new ProfileView(this.profile, this.element)
-    this.recorder = new Recorder(this.profile.timeline, this.inputTarget)
+    this.recorder = new Recorder(this.timeline, this.inputTarget)
+  }
+
+  get timeline() {
+    return this.profile.timeline
   }
 
   record(object) {
@@ -17,7 +21,8 @@ export default class extends Controller {
     this.view.update()
   }
 
-  async save() {
+  async save(event) {
+    disable(event.target)
     await this.profile.save()
     this.navigateTo(`/profiles/${this.profile.id}`)
   }
@@ -35,4 +40,10 @@ export default class extends Controller {
 
 async function findOrCreateProfile(id) {
   return id ? Profile.load(id) : Profile.create()
+}
+
+function disable(element) {
+  element.disabled = true
+  const text = element.getAttribute("data-disable-with")
+  if (text) element.textContent = text
 }

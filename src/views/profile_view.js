@@ -6,9 +6,11 @@ export class ProfileView {
     this.element = element
     this.element.innerHTML = this.html
     this.timelineView = new TimelineView(this.timeline, this.element.querySelector("tbody"))
+    this.update()
   }
 
   update() {
+    this.element.classList.toggle("has-timeline", this.timeline.length)
     this.timelineView.update()
   }
 
@@ -16,6 +18,10 @@ export class ProfileView {
 
   get timeline() {
     return this.profile.timeline
+  }
+
+  get browser() {
+    return this.profile.browser
   }
 
   get snapshot() {
@@ -37,7 +43,18 @@ export class ProfileView {
           keydown->profile#record
         ">${this.snapshot}</div>
 
-      <button data-action="profile#save">Save</button>
+      <div class="profile-meta">
+        <details class="profile-browser">
+          <summary>${this.browser.navigator.userAgent}</summary>
+          <pre>${JSON.stringify({ screen: this.browser.screen, window: this.browser.window }, null, 2)}</pre>
+        </details>
+
+        <div class="profile-actions">
+          ${this.profile.id ? "" : `
+            <button data-action="profile#save" title="Create a public URL for this page" data-disable-with="Saving…">Save</button>
+          `}
+        </div>
+      </div>
 
       <table>
         <colgroup>
