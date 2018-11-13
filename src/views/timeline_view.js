@@ -6,9 +6,10 @@ export class TimelineView {
     this.element = element
     this.rendering = false
     this.renderIndex = 0
+    this.update()
   }
 
-  render() {
+  update() {
     if (this.rendering) return
     this.rendering = true
 

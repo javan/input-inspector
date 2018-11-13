@@ -47,10 +47,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "index.html"
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/profile.html",
-      filename: "profile.html"
     })
   ]
 }

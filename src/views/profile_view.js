@@ -1,14 +1,45 @@
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Input Inspector</title>
-  </head>
-  <body>
-    <main data-controller="profile">
-      <div class="editor" data-target="profile.snapshot"></div>
+import { TimelineView } from "./timeline_view"
+
+export class ProfileView {
+  constructor(profile, element) {
+    this.profile = profile
+    this.element = element
+    this.element.innerHTML = this.html
+    this.timelineView = new TimelineView(this.timeline, this.element.querySelector("tbody"))
+  }
+
+  update() {
+    this.timelineView.update()
+  }
+
+  // Private
+
+  get timeline() {
+    return this.profile.timeline
+  }
+
+  get snapshot() {
+    const entry = this.timeline.slice(-1)[0]
+    return entry ? entry.snapshot : ""
+  }
+
+  get html() {
+    return `
+      <div class="editor" contenteditable="true"
+        data-placeholder="Type here…"
+        data-target="profile.input"
+        data-action="
+          beforeinput->profile#record
+          compositionstart->profile#record
+          compositionupdate->profile#record
+          compositionend->profile#record
+          input->profile#record
+          keydown->profile#record
+        ">${this.snapshot}</div>
+
+      <button data-action="profile#save">Save</button>
 
       <table>
-        <caption data-target="profile.caption"></caption>
         <colgroup>
           <col style="width: 3em">
           <col style="width: 10em">
@@ -57,8 +88,8 @@
             <th rowspan="3"><abbr title="Event: cancelable" class="symbol">🚫</abbr></th>
           </tr>
         </thead>
-        <tbody data-target="profile.timeline"></tbody>
+        <tbody></tbody>
       </table>
-    </main>
-  </body>
-</html>
+    `
+  }
+}

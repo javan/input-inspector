@@ -1,23 +1,38 @@
 import { Controller } from "stimulus"
 import { Profile } from "../models/profile"
-import { TimelineView } from "../views/timeline_view"
+import { Recorder } from "../models/recorder"
+import { ProfileView } from "../views/profile_view"
 
 export default class extends Controller {
-  static targets = [ "snapshot", "caption", "timeline" ]
+  static targets = [ "input" ]
 
   async initialize() {
-    this.profile = await Profile.load(this.id)
-    this.timelineView = new TimelineView(this.profile.timeline, this.timelineTarget)
-    this.render()
+    this.profile = await findOrCreateProfile(this.data.get("id"))
+    this.view = new ProfileView(this.profile, this.element)
+    this.recorder = new Recorder(this.profile.timeline, this.inputTarget)
   }
 
-  render() {
-    this.snapshotTarget.innerHTML = this.profile.timeline.slice(-1)[0].snapshot
-    this.captionTarget.textContent = this.profile.browser.navigator.userAgent
-    this.timelineView.render()
+  record(object) {
+    this.recorder.record(object)
+    this.view.update()
   }
 
-  get id() {
-    return window.location.pathname.match(/\/p\/([^\/]+)/)[1]
+  async save() {
+    await this.profile.save()
+    this.navigateTo(`/p/${this.profile.id}`)
   }
+
+  // Private
+
+  navigateTo(path) {
+    history.pushState(null, null, path)
+    const event = document.createEvent("Events")
+    event.initEvent("navigate", true, false)
+    event.state = history.state
+    this.element.dispatchEvent(event)
+  }
+}
+
+async function findOrCreateProfile(id) {
+  return id ? Profile.load(id) : Profile.create()
 }

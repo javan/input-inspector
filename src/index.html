@@ -4,72 +4,9 @@
     <title>Input Inspector</title>
   </head>
   <body>
-    <main data-controller="timeline">
-      <div class="editor" contenteditable="true"
-        data-placeholder="Type here…"
-        data-target="timeline.editor"
-        data-action="
-          beforeinput->timeline#record
-          compositionstart->timeline#record
-          compositionupdate->timeline#record
-          compositionend->timeline#record
-          input->timeline#record
-          keydown->timeline#record
-        "></div>
-
-      <button data-action="timeline#save">Save</button>
-      <table>
-        <caption data-target="timeline.caption"></caption>
-        <colgroup>
-          <col style="width: 3em">
-          <col style="width: 10em">
-          <col style="width: 10em">
-          <col>
-          <col>
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-        </colgroup>
-        <thead>
-          <tr>
-            <th rowspan="5">#</th>
-            <th rowspan="5">Constructor</th>
-            <th rowspan="5">type</th>
-          </tr>
-          <tr>
-            <th colspan="6">
-              <abbr title="MutationRecord" class="row-type MutationRecord"></abbr>
-              mutations
-            </th>
-          </tr>
-          <tr>
-            <th colspan="2">
-              <abbr title="CompositionEvent" class="row-type CompositionEvent"></abbr>
-              data
-            </th>
-          </tr>
-          <tr>
-            <th class="entry-col--type">
-              <abbr title="InputEvent" class="row-type InputEvent"></abbr>
-              data
-            </th>
-            <th>inputType</th>
-          </tr>
-          <tr>
-            <th>
-              <abbr title="KeyboardEvent" class="row-type KeyboardEvent"></abbr>
-              key
-            </th>
-            <th>code</th>
-            <th rowspan="3"><abbr title="Event: key modifiers" class="symbol">⌨️</abbr></th>
-            <th rowspan="3"><abbr title="Event: repeat" class="symbol">🔂</abbr></th>
-            <th rowspan="3"><abbr title="Event: isComposing" class="symbol">✍️</abbr></th>
-            <th rowspan="3"><abbr title="Event: cancelable" class="symbol">🚫</abbr></th>
-          </tr>
-        </thead>
-        <tbody data-target="timeline.entries"></tbody>
-      </table>
-    </main>
+    <main data-controller="application" data-action="
+        navigate->application#render
+        popstate@window->application#render
+      "></main>
   </body>
 </html>
