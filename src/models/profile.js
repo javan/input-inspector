@@ -11,8 +11,7 @@ export class Profile {
   static fromJSON(data) {
     return new this({
       ...data,
-      timeline: new Timeline(data.timeline),
-      createdAt: new Date(data.createdAt.seconds * 1000)
+      timeline: new Timeline(data.timeline)
     })
   }
 
@@ -23,7 +22,7 @@ export class Profile {
   }
 
   constructor(data) {
-    Object.assign(this, slice(data, "id", "browser", "timeline", "createdAt"))
+    Object.assign(this, slice(data, "id", "browser", "timeline"))
   }
 
   async save() {

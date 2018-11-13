@@ -1,4 +1,4 @@
-import * as firebase from "firebase/app"
+import firebase from "firebase/app"
 import "firebase/firestore"
 
 firebase.initializeApp({
@@ -11,10 +11,8 @@ const db = firebase.firestore()
 db.settings({ timestampsInSnapshots: true })
 
 export async function create(collectionName, data) {
-  return db.collection(collectionName).add({
-    ...JSON.parse(JSON.stringify(data)),
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  })
+  data = JSON.parse(JSON.stringify(data))
+  return db.collection(collectionName).add(data)
 }
 
 export async function load(collectionName, id) {
