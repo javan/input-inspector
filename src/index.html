@@ -1,17 +1,24 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="See what happens when you type!">
     <title>Input Inspector</title>
+    <% htmlWebpackPlugin.files.css.forEach(href => { %><link href="<%= href %>" rel="stylesheet"><% }) %>
+    <% htmlWebpackPlugin.files.js.forEach(src => { %><script src="<%= src %>" defer></script><% }) %>
   </head>
   <body>
-    <main data-controller="application" data-action="
+    <main
+      data-controller="application"
+      data-action="
         navigate->application#render
         popstate@window->application#render
       "></main>
 
     <footer>
-      Made by <a href="https://javan.us">Javan</a>. <a href="https://github.com/javan/input-inspector">View on GitHub</a>.
+      Made by <a href="https://javan.us">Javan</a>.
+      <a href="https://github.com/javan/input-inspector">View on GitHub</a>.
     </footer>
 
     <script>
