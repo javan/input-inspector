@@ -55,7 +55,7 @@ button {
   outline: none;
 }
 
-.editor:empty::before {
+.editor:empty:not(:focus)::before {
   content: attr(data-placeholder);
   color: graytext;
   cursor: text;

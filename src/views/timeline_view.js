@@ -14,13 +14,16 @@ export class TimelineView {
     this.rendering = true
 
     requestAnimationFrame(() => {
-      const entries = this.timeline.slice(this.renderIndex)
+      const { renderIndex } = this
+      const entries = this.timeline.slice(renderIndex)
+
+      this.renderIndex += entries.length
+      this.rendering = false
+
       entries.forEach((entry, index) => {
-        const html = TimelineEntryView.render(entry, index + this.renderIndex + 1)
+        const html = TimelineEntryView.render(entry, index + renderIndex + 1)
         this.element.insertAdjacentHTML("afterbegin", html)
       })
-      this.rendering = false
-      this.renderIndex += entries.length
     })
   }
 }
