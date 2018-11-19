@@ -260,3 +260,27 @@ del.diff--node::before {
 .snapshot-trigger {
   cursor: zoom-in;
 }
+
+.range {
+  border: 1px dashed highlight;
+  padding: 0 0.1em;
+  position: relative
+}
+
+.range--target {
+  background-color: transparent;
+  opacity: 0.6;
+}
+
+.range--target::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: highlight;
+  opacity: 0.5;
+}
