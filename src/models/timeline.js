@@ -47,6 +47,9 @@ export class Timeline {
         data[key] = value
       }
     }
+    if (event.dataTransfer) {
+      data.dataTransfer = this.serializeDataTransfer(event.dataTransfer)
+    }
     return data
   }
 
@@ -73,5 +76,27 @@ export class Timeline {
       case Node.COMMENT_NODE:
         return { type: "comment", value: node.data }
     }
+  }
+
+  serializeDataTransfer(dataTransfer) {
+    const data = {}
+    if (dataTransfer.types) {
+      data.types = {}
+      for (const type of dataTransfer.types) {
+        const value = dataTransfer.getData(type)
+        if (typeof value == "string") {
+          data.types[type] = value
+        }
+      }
+    }
+    if (dataTransfer.files) {
+      data.files = Array.from(dataTransfer.files, this.serializeFile)
+    }
+    return data
+  }
+
+  serializeFile(file) {
+    const { name, type, size } = file
+    return { name, type, size }
   }
 }
