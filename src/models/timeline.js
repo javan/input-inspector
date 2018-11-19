@@ -50,6 +50,9 @@ export class Timeline {
     if (event.dataTransfer) {
       data.dataTransfer = this.serializeDataTransfer(event.dataTransfer)
     }
+    if (typeof event.getTargetRanges == "function") {
+      data.targetRanges = Array.from(event.getTargetRanges(), serializeRange)
+    }
     return data
   }
 
@@ -99,4 +102,38 @@ export class Timeline {
     const { name, type, size } = file
     return { name, type, size }
   }
+}
+
+function serializeRange(range) {
+  return {
+    contents: serializeRangeContents(copyRange(range)),
+    startContainer: serializeRangeContainer(range.startContainer),
+    endContainer: serializeRangeContainer(range.endContainer),
+    startOffset: range.startOffset,
+    endOffset: range.endOffset,
+  }
+}
+
+function serializeRangeContainer(node) {
+  const indexes = []
+  while (node && node.parentNode && node.parentNode.isContentEditable) {
+    const { parentNode } = node
+    const index = Array.from(parentNode.childNodes).indexOf(node)
+    indexes.unshift(index)
+    node = parentNode
+  }
+  return indexes
+}
+
+function serializeRangeContents(range) {
+  const element = document.createElement("div")
+  element.appendChild(range.cloneContents())
+  return element.innerHTML
+}
+
+function copyRange(range) {
+  const copy = document.createRange()
+  copy.setStart(range.startContainer, range.startOffset)
+  copy.setEnd(range.endContainer, range.endOffset)
+  return copy
 }
