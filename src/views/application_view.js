@@ -5,16 +5,17 @@ export class ApplicationView {
   }
 
   render() {
-    this.element.innerHTML = `
-      <div data-controller="profile" data-profile-id="${this.profileId}"></div>
-    `
+    this.element.innerHTML = this.profileIds.map(id =>`
+      <div data-controller="profile" data-profile-id="${id}" class="profile"></div>
+    `).join("")
   }
 
   // Private
 
-  get profileId() {
+  get profileIds() {
     const { pathname, search } = window.location
-    const match = pathname.match(/profiles\/(\w+)/) || search.match(/profileId=(\w+)/)
-    return match ? match[1] : ""
+    const match = pathname.match(/profiles\/([\w,]+)/) || search.match(/profileId=([\w,]+)/)
+    const ids = match ? match[1] : ""
+    return ids.split(",")
   }
 }
