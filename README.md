@@ -2,7 +2,7 @@
 
 See what happens when you type!
 
-[![Input Inpsector Screenshot](https://user-images.githubusercontent.com/5355/48442102-31e60b00-e75b-11e8-82eb-2afcfaeb1e4a.png)](https://input-inspector.now.sh/profiles/agUPMnBtM6JRIjXQc9HH)
+[![Input Inpsector Screenshot](https://user-images.githubusercontent.com/5355/48789037-18dcdd00-ecba-11e8-93cb-9d330224bd2b.png)](https://input-inspector.now.sh/profiles/r2tRtvEOm3N0zWkZQJgk)
 
 ## See Also
 
