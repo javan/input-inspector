@@ -246,8 +246,8 @@ del.diff--node::before {
   z-index: 10;
   top: calc(100% + 0.4em);
   left: -0.3em;
-  width: 90vw;
-  max-width: 968px;
+  width: 25vw;
+  max-width: 825px;
   white-space: normal;
   background-color: white;
   border-radius: 3px;
