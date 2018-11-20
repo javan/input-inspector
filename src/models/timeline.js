@@ -3,9 +3,10 @@ export class Timeline {
     this.entries = entries
   }
 
-  record(object, snapshot) {
+  record(object, snapshot, selection) {
     const entry = {
       snapshot,
+      selection: serializeSelection(selection),
       time: performance.now(),
       constructorName: object.constructor.name
     }
@@ -102,6 +103,17 @@ export class Timeline {
     const { name, type, size } = file
     return { name, type, size }
   }
+}
+
+function serializeSelection(selection) {
+  const ranges = []
+  if (selection) {
+    while (ranges.length < selection.rangeCount) {
+      const range = selection.getRangeAt(ranges.length)
+      ranges.push(serializeRange(range))
+    }
+  }
+  return ranges
 }
 
 function serializeRange(range) {

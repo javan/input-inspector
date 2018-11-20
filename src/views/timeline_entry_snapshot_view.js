@@ -11,12 +11,22 @@ export class TimelineEntrySnapshotView {
     this.element = document.createElement("div")
     this.element.innerHTML = this.entry.snapshot
 
-    for (const range of this.targetRanges) {
+    const { targetRanges } = this
+    for (const range of targetRanges) {
       const mark = document.createElement("mark")
-      mark.classList.add("range", "range--target")
-      mark.classList.toggle("range--collapsed", range.collapsed)
+      mark.classList.add("range", "range--target", `range--${range.collapsed ? "collapsed" : "expanded"}`)
       mark.appendChild(range.extractContents())
       range.insertNode(mark)
+    }
+
+    if (!targetRanges.length) {
+      const { selectionRanges } = this
+      for (const range of selectionRanges) {
+        const mark = document.createElement("mark")
+        mark.classList.add("range", "range--selection", `range--${range.collapsed ? "collapsed" : "expanded"}`)
+        mark.appendChild(range.extractContents())
+        range.insertNode(mark)
+      }
     }
 
     return this.element.innerHTML
@@ -25,10 +35,13 @@ export class TimelineEntrySnapshotView {
   // Private
 
   get targetRanges() {
-    const { targetRanges } = this.entry.data
-    return targetRanges
-      ? targetRanges.map(range => this.deserializeRange(range))
-      : []
+    const ranges = this.entry.data.targetRanges || []
+    return ranges.map(range => this.deserializeRange(range))
+  }
+
+  get selectionRanges() {
+    const ranges = this.entry.selection || []
+    return ranges.map(range => this.deserializeRange(range))
   }
 
   deserializeRange({ startContainer, startOffset, endContainer, endOffset }) {

@@ -261,26 +261,33 @@ del.diff--node::before {
   cursor: zoom-in;
 }
 
-.range {
-  border: 1px dashed highlight;
-  padding: 0 0.1em;
-  position: relative
-}
-
-.range--target {
-  background-color: transparent;
-  opacity: 0.6;
-}
-
-.range--target::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.range--expanded {
+  padding: 0 0.25em;
   background-color: highlight;
-  opacity: 0.5;
+}
+
+.range--collapsed {
+  background-color: transparent;
+  animation: blink 1s step-end infinite;
+}
+
+.range--collapsed::after {
+  content: "|";
+  font-weight: 100;
+}
+
+.range--target.range--collapsed {
+  color: orange;
+}
+
+.range--target.range--expanded {
+  background-color: lightyellow;
+  border-top: 1px dotted orange;
+  border-bottom: 1px dotted orange;
+}
+
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
 }

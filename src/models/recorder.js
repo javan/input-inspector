@@ -22,11 +22,21 @@ export class Recorder {
   }
 
   record(object) {
-    return this.timeline.record(object, this.snapshot)
+    return this.timeline.record(object, this.snapshot, this.selection)
   }
 
   get snapshot() {
     return this.element.innerHTML
+  }
+
+  get selection() {
+    const selection = window.getSelection()
+    if (
+      this.element.contains(selection.anchorNode) &&
+      this.element.contains(selection.focusNode)
+    ) {
+      return selection
+    }
   }
 
   // Private
