@@ -45,7 +45,7 @@ export class ProfileView {
 
       <div class="profile-meta">
         <details class="profile-browser">
-          <summary>${this.browser.navigator.userAgent}</summary>
+          <summary class="profile-user-agent">${this.browser.navigator.userAgent}</summary>
           <pre>${JSON.stringify({ screen: this.browser.screen, window: this.browser.window }, null, 2)}</pre>
         </details>
 
@@ -60,7 +60,6 @@ export class ProfileView {
         <colgroup>
           <col style="width: 3em">
           <col style="width: 10em">
-          <col style="width: 10em">
           <col>
           <col>
           <col style="width: 1%">
@@ -71,7 +70,6 @@ export class ProfileView {
         <thead>
           <tr>
             <th rowspan="5">#</th>
-            <th rowspan="5">Constructor</th>
             <th rowspan="5">type</th>
           </tr>
           <tr>

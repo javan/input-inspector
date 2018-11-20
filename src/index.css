@@ -15,7 +15,7 @@ body {
 
 main {
   flex: 1 0 auto;
-  max-width: 968px;
+  max-width: 825px;
   margin: 0 auto;
 }
 
@@ -75,6 +75,10 @@ button {
 
 .profile-browser {
   padding-right: 2em;
+}
+
+.profile-user-agent {
+  letter-spacing: -0.08em;
 }
 
 .profile-actions {

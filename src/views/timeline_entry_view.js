@@ -23,7 +23,6 @@ export class TimelineEntryView {
           <span class="snapshot-trigger">${this.index}</span>
           <div class="snapshot">${TimelineEntrySnapshotView.render(this.entry)}</div>
         </td>
-        <td>${format(constructorName)}</td>
         <td>${format(this.data.type)}</td>
         ${this[constructorName]()}
       </tr>
