@@ -118,7 +118,6 @@ function serializeSelection(selection) {
 
 function serializeRange(range) {
   return {
-    contents: serializeRangeContents(copyRange(range)),
     startContainer: serializeRangeContainer(range.startContainer),
     endContainer: serializeRangeContainer(range.endContainer),
     startOffset: range.startOffset,
@@ -135,17 +134,4 @@ function serializeRangeContainer(node) {
     node = parentNode
   }
   return indexes
-}
-
-function serializeRangeContents(range) {
-  const element = document.createElement("div")
-  element.appendChild(range.cloneContents())
-  return element.innerHTML
-}
-
-function copyRange(range) {
-  const copy = document.createRange()
-  copy.setStart(range.startContainer, range.startOffset)
-  copy.setEnd(range.endContainer, range.endOffset)
-  return copy
 }
