@@ -185,16 +185,22 @@ kbd {
   padding: 3px 4px 2px 3px;
 }
 
-.node {
+.node,
+.event-data {
   position: relative;
 }
 
+.event-data--string::before,
+.event-data--string::after {
+  content: '"';
+}
+
 .node--text::before {
-  content: "“";
+  content: '<#text"';
 }
 
 .node--text::after {
-  content: "”";
+  content: '">';
 }
 
 .diff {

@@ -40,16 +40,18 @@ export class TimelineEntryView {
   }
 
   InputEvent() {
+    const { data, inputType } = this.data
     return `
-      <td>${format(this.data.data)}</td>
-      <td>${format(this.data.inputType)}</td>
+      <td><span class="event-data event-data--${typeof(data)}">${format(data)}</span></td>
+      <td>${format(inputType)}</td>
       ${this.eventDetails()}
     `
   }
 
   CompositionEvent() {
+    const { data } = this.data
     return `
-      <td colspan="2">${format(this.data.data)}</td>
+      <td colspan="2"><span class="event-data event-data--${typeof(data)}">${format(data)}</span></td>
       ${this.eventDetails()}
     `
   }
