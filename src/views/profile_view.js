@@ -26,7 +26,13 @@ export class ProfileView {
 
   get snapshot() {
     const entry = this.timeline.slice(-1)[0]
-    return entry ? entry.snapshot : ""
+    return entry ? entry.snapshot : this.template
+  }
+
+  get template() {
+    const { search } = window.location
+    const match = search.match(/[\?&]template=([^&]+)/)
+    return match ? decodeURIComponent(match[1]) : ""
   }
 
   get html() {
