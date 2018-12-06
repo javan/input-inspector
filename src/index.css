@@ -46,7 +46,7 @@ button {
 }
 
 .profile {
-  max-width: 825px;
+  width: 700px;
 }
 
 .profile:not(:first-child) {
@@ -84,11 +84,19 @@ button {
 }
 
 .profile-browser {
+  max-width: 500px;
   padding-right: 2em;
 }
 
 .profile-user-agent {
-  letter-spacing: -0.08em;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.profile-browser-data {
+  white-space: pre-wrap;
 }
 
 .profile-actions {

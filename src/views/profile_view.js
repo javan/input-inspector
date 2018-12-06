@@ -45,10 +45,12 @@ export class ProfileView {
         ">${this.snapshot || this.template}</div>
 
       <div class="profile-meta">
-        <details class="profile-browser">
-          <summary class="profile-user-agent">${this.browser.navigator.userAgent}</summary>
-          <pre>${JSON.stringify({ screen: this.browser.screen, window: this.browser.window }, null, 2)}</pre>
-        </details>
+        <div class="profile-browser">
+          <details>
+            <summary class="profile-user-agent">${this.browser.navigator.userAgent}</summary>
+            <pre class="profile-browser-data">${JSON.stringify(this.browser, null, 2)}</pre>
+          </details>
+        </div>
 
         <div class="profile-actions" ${this.profile.id ? "hidden" : ""}>
           <strong><button data-action="profile#save" title="Create a public URL for this page" data-disable-with="Saving…">Save</button></strong>
