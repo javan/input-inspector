@@ -5,17 +5,25 @@ export class ApplicationView {
   }
 
   render() {
-    this.element.innerHTML = this.profileIds.map(id =>`
-      <div data-controller="profile" data-profile-id="${id}" class="profile"></div>
+    const { profileIds, template } = this
+    this.element.innerHTML = profileIds.map(id =>`
+      <div class="profile"
+        data-controller="profile"
+        data-profile-id="${id}"
+        data-profile-template="${template}"></div>
     `).join("")
   }
 
   // Private
 
   get profileIds() {
-    const { pathname, search } = window.location
-    const match = pathname.match(/profiles\/([\w,]+)/) || search.match(/profileId=([\w,]+)/)
+    const match = location.pathname.match(/profiles\/([\w,]+)/)
     const ids = match ? match[1] : ""
     return ids.split(",")
+  }
+
+  get template() {
+    const match = location.pathname.match(/template\/([^\/]+)/)
+    return match ? match[1] : ""
   }
 }

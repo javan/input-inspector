@@ -33,7 +33,8 @@ module.exports = {
   },
 
   devServer: {
-    hot: false
+    hot: false,
+    historyApiFallback: true,
   },
 
   optimization: {

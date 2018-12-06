@@ -6,6 +6,7 @@
     { "src": "package.json", "use": "@now/static-build" }
   ],
   "routes": [
-    { "src": "/profiles/(?<id>[^/]*)", "dest": "/" }
+    { "src": "/profiles/(?<id>[^/]*)", "dest": "/" },
+    { "src": "/template/([^/]+)",      "dest": "/" }
   ]
 }

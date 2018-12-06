@@ -7,9 +7,17 @@ export default class extends Controller {
   static targets = [ "input" ]
 
   async initialize() {
-    this.profile = await findOrCreateProfile(this.data.get("id"))
-    this.view = new ProfileView(this.profile, this.element)
+    this.profile = await findOrCreateProfile(this.id)
+    this.view = new ProfileView(this.profile, this.element, this.template)
     this.recorder = new Recorder(this.timeline, this.inputTarget)
+  }
+
+  get id() {
+    return this.data.get("id")
+  }
+
+  get template() {
+    return decodeURIComponent(this.data.get("template"))
   }
 
   get timeline() {
@@ -25,6 +33,11 @@ export default class extends Controller {
     disable(event.target)
     await this.profile.save()
     this.navigateTo(`/profiles/${this.profile.id}`)
+  }
+
+  toTemplate(event) {
+    const template = encodeURIComponent(this.inputTarget.innerHTML)
+    this.navigateTo(`/template/${template}`)
   }
 
   // Private

@@ -1,9 +1,10 @@
 import { TimelineView } from "./timeline_view"
 
 export class ProfileView {
-  constructor(profile, element) {
+  constructor(profile, element, template) {
     this.profile = profile
     this.element = element
+    this.template = template
     this.element.innerHTML = this.html
     this.timelineView = new TimelineView(this.timeline, this.element.querySelector("tbody"))
     this.update()
@@ -26,13 +27,7 @@ export class ProfileView {
 
   get snapshot() {
     const entry = this.timeline.slice(-1)[0]
-    return entry ? entry.snapshot : this.template
-  }
-
-  get template() {
-    const { search } = window.location
-    const match = search.match(/[\?&]template=([^&]+)/)
-    return match ? decodeURIComponent(match[1]) : ""
+    return entry ? entry.snapshot : ""
   }
 
   get html() {
@@ -47,7 +42,7 @@ export class ProfileView {
           compositionend->profile#record
           input->profile#record
           keydown->profile#record
-        ">${this.snapshot}</div>
+        ">${this.snapshot || this.template}</div>
 
       <div class="profile-meta">
         <details class="profile-browser">
@@ -55,10 +50,10 @@ export class ProfileView {
           <pre>${JSON.stringify({ screen: this.browser.screen, window: this.browser.window }, null, 2)}</pre>
         </details>
 
-        <div class="profile-actions">
-          ${this.profile.id ? "" : `
-            <button data-action="profile#save" title="Create a public URL for this page" data-disable-with="Saving…">Save</button>
-          `}
+        <div class="profile-actions" ${this.profile.id ? "hidden" : ""}>
+          <strong><button data-action="profile#save" title="Create a public URL for this page" data-disable-with="Saving…">Save</button></strong>
+          or
+          <button data-action="profile#toTemplate" title="Use the inspector’s contents as a template">Convert to template</button>
         </div>
       </div>
 

@@ -93,6 +93,7 @@ button {
 
 .profile-actions {
   visibility: hidden;
+  white-space: nowrap;
 }
 
 .has-timeline .profile-actions {
