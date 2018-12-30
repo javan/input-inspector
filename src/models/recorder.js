@@ -1,4 +1,5 @@
 import { Timeline } from "./timeline"
+import { AnimationFrame } from "./animation-frame"
 
 export class Recorder {
   constructor(timeline, element) {
@@ -22,6 +23,7 @@ export class Recorder {
   }
 
   record(object) {
+    this.recordNextAnimationFrame()
     return this.timeline.record(object, this.snapshot, this.selection)
   }
 
@@ -40,6 +42,14 @@ export class Recorder {
   }
 
   // Private
+
+  recordNextAnimationFrame() {
+    if (this.animationFrame) return
+    this.animationFrame = new AnimationFrame(() => {
+      this.record(this.animationFrame)
+      this.animationFrame = null
+    })
+  }
 
   recordMutations(mutations) {
     Array.from(mutations).forEach(mutation => this.record(mutation))

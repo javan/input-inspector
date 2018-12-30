@@ -177,6 +177,11 @@ abbr.row-type {
   background-color: #f7f0e0;
 }
 
+.AnimationFrame {
+  background-color: #5a6888;
+  color: #f1f1f1;
+}
+
 abbr, acronym {
   text-decoration: none;
   cursor: help;

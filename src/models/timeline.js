@@ -1,3 +1,5 @@
+import { AnimationFrame } from "./animation-frame"
+
 export class Timeline {
   constructor(entries = []) {
     this.entries = entries
@@ -21,6 +23,13 @@ export class Timeline {
       return this.entries.push({
         type: "mutation",
         data: this.serializeMutation(object),
+        ...entry
+      })
+    }
+    if (object instanceof AnimationFrame) {
+      return this.entries.push({
+        type: "animationFrame",
+        data: object,
         ...entry
       })
     }

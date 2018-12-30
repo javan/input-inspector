@@ -23,7 +23,7 @@ export class TimelineEntryView {
           <span class="snapshot-trigger">${this.index}</span>
           <div class="snapshot">${TimelineEntrySnapshotView.render(this.entry)}</div>
         </td>
-        <td>${format(this.data.type)}</td>
+        <td>${format(this.data.type || this.entry.type)}</td>
         ${this[constructorName]()}
       </tr>
     `
@@ -61,6 +61,12 @@ export class TimelineEntryView {
       <td colspan="6">
         ${this[`${this.data.type}Mutation`]()}
       </td>
+    `
+  }
+
+  AnimationFrame() {
+    return `
+      <td colspan="6"></td>
     `
   }
 
