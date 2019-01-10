@@ -72,6 +72,11 @@ button {
   color: #666;
 }
 
+.editor li,
+.snapshot li {
+  margin-left: 1em;
+}
+
 .profile-meta {
   display: flex;
   justify-content: space-between;
