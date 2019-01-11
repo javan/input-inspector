@@ -35,13 +35,24 @@ export class TimelineEntrySnapshotView {
   // Private
 
   get targetRanges() {
-    const ranges = this.entry.data.targetRanges || []
-    return ranges.map(range => this.deserializeRange(range))
+    return this.deserializeRanges(this.entry.data.targetRanges)
   }
 
   get selectionRanges() {
-    const ranges = this.entry.selection || []
-    return ranges.map(range => this.deserializeRange(range))
+    return this.deserializeRanges(this.entry.selection)
+  }
+
+  deserializeRanges(ranges = []) {
+    const results = []
+    for (const range of ranges) {
+      try {
+        const result = this.deserializeRange(range)
+        results.push(result)
+      } catch (error) {
+        console.warn(error)
+      }
+    }
+    return results
   }
 
   deserializeRange({ startContainer, startOffset, endContainer, endOffset }) {
