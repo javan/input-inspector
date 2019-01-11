@@ -40,9 +40,12 @@ export class TimelineEntryView {
   }
 
   InputEvent() {
-    const { data, inputType } = this.data
+    const { data, dataTransfer, inputType } = this.data
     return `
-      <td><span class="event-data event-data--${typeof(data)}">${format(data)}</span></td>
+      <td>${dataTransfer && Object.keys(dataTransfer).length
+        ? `<details class="event-data-transfer"><summary>dataTransfer</summary>${formatDataTransfer(dataTransfer)}</details>`
+        : `<span class="event-data event-data--${typeof(data)}">${format(data)}</span>`}
+      </td>
       <td>${format(inputType)}</td>
       ${this.eventDetails()}
     `
@@ -105,6 +108,26 @@ export class TimelineEntryView {
       `<ins class="diff diff--node"><span class="node node--${type}">${format(value)}</span></ins>`
     )).join("<br>")
   }
+}
+
+function formatDataTransfer(dataTransfer) {
+  const { types, files } = dataTransfer
+  const lines = []
+  if (types && Object.keys(types).length) {
+    for (const type in types) {
+      lines.push(`<strong>${escape(type)}:</strong>`)
+      if (type == "Files") {
+        for (const file of files) {
+          lines.push(` - ${JSON.stringify(file)}`)
+        }
+      } else {
+        const value = types[type]
+        const rows = Math.ceil(value.length / 20)
+        lines.push(`<textarea rows="${rows}" readonly>${escape(value)}</textarea>`)
+      }
+    }
+  }
+  return lines.join("<br>")
 }
 
 function format(value) {
