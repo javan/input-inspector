@@ -36,12 +36,13 @@ export class ProfileView {
         data-placeholder="Type here…"
         data-target="profile.input"
         data-action="
-          beforeinput->profile#record
+          keydown->profile#record
           compositionstart->profile#record
           compositionupdate->profile#record
           compositionend->profile#record
+          paste->profile#record
+          beforeinput->profile#record
           input->profile#record
-          keydown->profile#record
         ">${this.snapshot || this.template}</div>
 
       <div class="profile-meta">

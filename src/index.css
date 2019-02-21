@@ -183,6 +183,10 @@ abbr.row-type {
   background-color: #d9e5f1;
 }
 
+.ClipboardEvent {
+  background-color: #d3fbe0;
+}
+
 .CompositionEvent {
   background-color: #fffed8;
 }

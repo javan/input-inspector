@@ -40,13 +40,17 @@ export class TimelineEntryView {
   }
 
   InputEvent() {
-    const { data, dataTransfer, inputType } = this.data
+    const { data, inputType } = this.data
     return `
-      <td>${dataTransfer && Object.keys(dataTransfer).length
-        ? `<details class="event-data-transfer"><summary>dataTransfer</summary>${formatDataTransfer(dataTransfer)}</details>`
-        : `<span class="event-data event-data--${typeof(data)}">${format(data)}</span>`}
-      </td>
+      <td>${this.eventDataTransfer() || `<span class="event-data event-data--${typeof(data)}">${format(data)}</span>`}</td>
       <td>${format(inputType)}</td>
+      ${this.eventDetails()}
+    `
+  }
+
+  ClipboardEvent() {
+    return `
+      <td colspan="2">${this.eventDataTransfer()}</td>
       ${this.eventDetails()}
     `
   }
@@ -91,6 +95,18 @@ export class TimelineEntryView {
     return keys.length
       ? keys.map(key => `<kbd>${key}</kbd>`).join("")
       : format(null)
+  }
+
+  eventDataTransfer() {
+    const { dataTransfer, clipboardData } = this.data
+    const parts = []
+    if (dataTransfer && Object.keys(dataTransfer).length) {
+      parts.push(`<details class="event-data-transfer"><summary>dataTransfer</summary>${formatDataTransfer(dataTransfer)}</details>`)
+    }
+    if (clipboardData && Object.keys(clipboardData).length) {
+      parts.push(`<details class="event-data-transfer"><summary>clipboardData</summary>${formatDataTransfer(clipboardData)}</details>`)
+    }
+    return parts.join("")
   }
 
   characterDataMutation() {

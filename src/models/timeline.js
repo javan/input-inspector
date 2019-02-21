@@ -60,6 +60,9 @@ export class Timeline {
     if (event.dataTransfer) {
       data.dataTransfer = this.serializeDataTransfer(event.dataTransfer)
     }
+    if (event.clipboardData) {
+      data.clipboardData = this.serializeDataTransfer(event.clipboardData)
+    }
     if (typeof event.getTargetRanges == "function") {
       data.targetRanges = Array.from(event.getTargetRanges(), serializeRange)
     }
