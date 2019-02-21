@@ -134,7 +134,11 @@ function formatDataTransfer(dataTransfer) {
       lines.push(`<strong>${escape(type)}:</strong>`)
       if (type == "Files") {
         for (const file of files) {
-          lines.push(` - ${JSON.stringify(file)}`)
+          Object.keys(file).forEach((key, index) => {
+            const value = file[key]
+            const line = `${key}: ${typeof value == "number" ? value : JSON.stringify(value)}`
+            lines.push(`${index == 0 ? "- " : "&nbsp; "} ${line}`)
+          })
         }
       } else {
         const value = types[type]
