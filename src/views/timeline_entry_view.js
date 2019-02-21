@@ -138,8 +138,12 @@ function formatDataTransfer(dataTransfer) {
         }
       } else {
         const value = types[type]
-        const rows = Math.ceil(value.length / 20)
-        lines.push(`<textarea rows="${rows}" readonly>${escape(value)}</textarea>`)
+        if (value) {
+          const rows = Math.ceil(value.length / 20)
+          lines.push(`<textarea rows="${rows}" readonly>${escape(value)}</textarea>`)
+        } else {
+          lines[lines.length - 1] += ` ${JSON.stringify(value)}`
+        }
       }
     }
   }
