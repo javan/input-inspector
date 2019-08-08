@@ -8,7 +8,6 @@ firebase.initializeApp({
 })
 
 const db = firebase.firestore()
-db.settings({ timestampsInSnapshots: true })
 
 export async function create(collectionName, data) {
   data = JSON.parse(JSON.stringify(data))
