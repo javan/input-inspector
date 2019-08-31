@@ -5,19 +5,12 @@ import { ProfileView } from "../views/profile_view"
 
 export default class extends Controller {
   static targets = [ "input" ]
+  static values = { id: String, template: String }
 
   async initialize() {
-    this.profile = await findOrCreateProfile(this.id)
-    this.view = new ProfileView(this.profile, this.element, this.template)
+    this.profile = await findOrCreateProfile(this.idValue)
+    this.view = new ProfileView(this.profile, this.element, decodeURIComponent(this.templateValue))
     this.recorder = new Recorder(this.timeline, this.inputTarget)
-  }
-
-  get id() {
-    return this.data.get("id")
-  }
-
-  get template() {
-    return decodeURIComponent(this.data.get("template"))
   }
 
   get timeline() {

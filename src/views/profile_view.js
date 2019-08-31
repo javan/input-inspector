@@ -34,7 +34,7 @@ export class ProfileView {
     return `
       <div class="editor" contenteditable="true"
         data-placeholder="Type here…"
-        data-target="profile.input"
+        data-profile-target="input"
         data-action="
           keydown->profile#record
           compositionstart->profile#record

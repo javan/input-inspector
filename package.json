@@ -16,7 +16,7 @@
     "firebase": "^6.5.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "stimulus": "^1.1.1",
+    "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
   },

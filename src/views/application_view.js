@@ -9,8 +9,8 @@ export class ApplicationView {
     this.element.innerHTML = profileIds.map(id =>`
       <div class="profile"
         data-controller="profile"
-        data-profile-id="${id}"
-        data-profile-template="${template}"></div>
+        data-profile-id-value="${id}"
+        data-profile-template-value="${template}"></div>
     `).join("")
   }
 
