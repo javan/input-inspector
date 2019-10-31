@@ -18,7 +18,7 @@
     "mini-css-extract-plugin": "0.8.0",
     "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz",
     "webpack": "4.41.2",
-    "webpack-cli": "3.3.7"
+    "webpack-cli": "3.3.10"
   },
   "devDependencies": {
     "webpack-dev-server": "3.8.0"
