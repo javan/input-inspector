@@ -20,11 +20,7 @@
     "webpack": "4.41.5",
     "webpack-cli": "3.3.10"
   },
-  "devDependencies": {
-    "webpack-dev-server": "3.10.1"
-  },
   "scripts": {
-    "start": "webpack-dev-server",
-    "now-build": "webpack"
+    "build": "webpack"
   }
 }

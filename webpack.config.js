@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: "[name]-[contenthash].js",
     chunkFilename: "[name]-[contenthash].js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "public"),
     publicPath: "/"
   },
 
@@ -30,11 +30,6 @@ module.exports = {
             use: [MiniCssExtractPlugin.loader, "css-loader"]
       }
     ]
-  },
-
-  devServer: {
-    hot: false,
-    historyApiFallback: true,
   },
 
   optimization: {
