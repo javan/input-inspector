@@ -11,7 +11,7 @@
     "@babel/preset-env": "7.11.5",
     "@babel/runtime": "7.11.2",
     "babel-loader": "8.1.0",
-    "css-loader": "4.2.2",
+    "css-loader": "4.3.0",
     "diff": "4.0.2",
     "firebase": "7.19.1",
     "html-webpack-plugin": "4.4.1",
