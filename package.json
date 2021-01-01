@@ -17,7 +17,7 @@
     "html-webpack-plugin": "4.5.0",
     "mini-css-extract-plugin": "1.3.1",
     "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz",
-    "webpack": "5.9.0",
+    "webpack": "5.11.1",
     "webpack-cli": "3.3.12"
   },
   "scripts": {
