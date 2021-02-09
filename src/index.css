@@ -284,6 +284,7 @@ del.diff--node::before {
   display: inline-block;
   width: 100%;
   text-align: center;
+  font-family: initial;
 }
 
 .symbol--null,
