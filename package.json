@@ -13,7 +13,7 @@
     "babel-loader": "8.2.2",
     "css-loader": "5.2.6",
     "diff": "5.0.0",
-    "firebase": "8.3.2",
+    "firebase": "8.6.3",
     "html-webpack-plugin": "4.5.2",
     "mini-css-extract-plugin": "1.4.0",
     "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz",
