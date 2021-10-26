@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/profiles/*"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/template/*"
+  to = "/"
+  status = 200
