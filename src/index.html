@@ -7,6 +7,7 @@
     <title>Input Inspector</title>
     <% htmlWebpackPlugin.files.css.forEach(href => { %><link href="<%= href %>" rel="stylesheet"><% }) %>
     <% htmlWebpackPlugin.files.js.forEach(src => { %><script src="<%= src %>" defer></script><% }) %>
+    <% if (env == "production") { %><script defer data-domain="input-inspector.javan.us" src="/hello.js"></script><% } %>
   </head>
   <body>
     <main

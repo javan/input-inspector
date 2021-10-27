@@ -2,6 +2,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
+const env = process.env.URL == "https://input-inspector.javan.us" ? "production" : "development"
+
 module.exports = {
   entry: {
     main: "./src/index.js"
@@ -44,6 +46,7 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html",
       inject: false,
+      templateParameters: { env },
     })
   ]
 }

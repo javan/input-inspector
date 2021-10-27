@@ -1,0 +1,15 @@
+{
+
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://input-inspector.javan.us",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://input-inspector.javan.us/:path*",
+      "permanent": true
+    }
+  ]
+}

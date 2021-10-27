@@ -1,8 +1,8 @@
-# [Input Inspector](https://input-inspector.now.sh/)
+# [Input Inspector](https://input-inspector.javan.us)
 
 See what happens when you type!
 
-[![Input Inpsector Screenshot](https://user-images.githubusercontent.com/5355/48789037-18dcdd00-ecba-11e8-93cb-9d330224bd2b.png)](https://input-inspector.now.sh/profiles/r2tRtvEOm3N0zWkZQJgk)
+[![Input Inpsector Screenshot](https://user-images.githubusercontent.com/5355/139100956-a1ace0b4-b6b8-48a3-94f0-2bc2775b9825.png)](https://input-inspector.javan.us/profiles/R9DJM6fWli6vHM4wKmeF)
 
 ## See Also
 

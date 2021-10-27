@@ -1,3 +1,4 @@
-.now
+.netlify
+.vercel
 node_modules
 public
