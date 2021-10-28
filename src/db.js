@@ -1,20 +1,20 @@
-import firebase from "firebase/app"
-import "firebase/firestore"
+import { initializeApp } from "firebase/app"
+import { getFirestore, doc, collection, getDoc, addDoc  } from "firebase/firestore/lite"
 
-firebase.initializeApp({
+const app = initializeApp({
   apiKey: "AIzaSyDzNThlJZ5jv4aObY-9_a9N2QjA605LW_E",
   databaseURL: "https://input-inspector.firebaseio.com",
   projectId: "input-inspector",
 })
 
-const db = firebase.firestore()
+const db = getFirestore()
 
 export async function create(collectionName, data) {
   data = JSON.parse(JSON.stringify(data))
-  return db.collection(collectionName).add(data)
+  return await addDoc(collection(db, collectionName), data)
 }
 
 export async function load(collectionName, id) {
-  const doc = await db.collection(collectionName).doc(id).get()
-  return doc.exists ? { id: doc.id, ...doc.data() } : null
+  const docSnap = await getDoc(doc(db, collectionName, id))
+  return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null
 }
