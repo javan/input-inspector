@@ -1,9 +1,17 @@
 {
   "presets": [
-    ["@babel/preset-env", { "loose": true }]
+    [
+      "@babel/preset-env",
+      {
+        "loose": true,
+        "shippedProposals": true,
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ]
   ],
   "plugins": [
-    ["@babel/plugin-proposal-class-properties", { "loose": true }],
     ["@babel/plugin-syntax-dynamic-import"],
     ["@babel/plugin-transform-runtime"]
   ]

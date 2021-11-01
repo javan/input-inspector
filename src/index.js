@@ -1,7 +1,9 @@
 import "./index.css"
 import { Application } from "stimulus"
-import { definitionsFromContext } from "stimulus/webpack-helpers"
+import ApplicationController from "./controllers/application_controller"
+import ProfileController from "./controllers/profile_controller"
 
-const application = Application.start()
-const context = require.context("./controllers", true, /\.js$/)
-application.load(definitionsFromContext(context))
+const application = new Application
+application.register("application", ApplicationController)
+application.register("profile", ProfileController)
+application.start()
