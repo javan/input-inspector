@@ -9,11 +9,6 @@
   status = 200
 
 [[redirects]]
-  from = "/hello.js"
-  to = "https://plausible.io/js/plausible.js"
+  from = "/count.js"
+  to = "https://gc.zgo.at/count.js"
   status = 200
-
-[[redirects]]
-  from = "/api/event"
-  to = "https://plausible.io/api/event"
-  status = 202
