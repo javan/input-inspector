@@ -9,7 +9,7 @@
     "@babel/plugin-transform-runtime": "7.19.6",
     "@babel/preset-env": "7.20.2",
     "@babel/runtime": "7.20.7",
-    "babel-loader": "8.2.5",
+    "babel-loader": "8.3.0",
     "css-loader": "6.7.3",
     "diff": "5.1.0",
     "firebase": "9.13.0",
