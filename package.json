@@ -12,7 +12,7 @@
     "babel-loader": "9.1.2",
     "css-loader": "6.8.1",
     "diff": "5.1.0",
-    "firebase": "9.23.0",
+    "firebase": "10.6.0",
     "html-webpack-plugin": "5.5.3",
     "mini-css-extract-plugin": "2.7.6",
     "stimulus": "3.2.1",
