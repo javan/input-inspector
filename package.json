@@ -16,7 +16,7 @@
     "html-webpack-plugin": "5.5.3",
     "mini-css-extract-plugin": "2.7.6",
     "stimulus": "3.2.1",
-    "webpack": "5.88.1",
+    "webpack": "5.90.1",
     "webpack-cli": "4.10.0"
   },
   "scripts": {
