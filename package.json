@@ -14,7 +14,7 @@
     "diff": "5.1.0",
     "firebase": "9.23.0",
     "html-webpack-plugin": "5.5.3",
-    "mini-css-extract-plugin": "2.7.6",
+    "mini-css-extract-plugin": "2.8.0",
     "stimulus": "3.2.1",
     "webpack": "5.88.1",
     "webpack-cli": "4.10.0"
